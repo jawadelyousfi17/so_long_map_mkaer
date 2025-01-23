@@ -7,6 +7,8 @@ const Navbar = ({ mode, setMode }) => {
   const handleChange = (event, newValue) => {
     setMode(newValue);
   };
+ 
+
   return (
     <div className=" h-12 justify-center gap-2 flex items-center">
       <Button variant="outlined" color="neutral" endDecorator={<FaGithub />}>

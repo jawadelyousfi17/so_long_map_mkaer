@@ -54,8 +54,19 @@ function App() {
   }, [myMap]);
 
   useEffect(() => {
-    setMode("dark");
+    localStorage.setItem("mode", mode);
+  }, [mode]);
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem("mode");
+    if (savedMode) {
+      setMode(savedMode);
+    } else {
+      setMode('dark');
+    }
   }, []);
+
+
 
   return (
     <>

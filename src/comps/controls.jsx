@@ -2,12 +2,12 @@ import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Button from "@mui/joy/Button";
 import Input from "@mui/joy/Input";
-import Textarea from '@mui/joy/Textarea';
+import Textarea from "@mui/joy/Textarea";
 import { useEffect, useState } from "react";
 
 import { LuUndo2 } from "react-icons/lu";
 import { MdContentCopy } from "react-icons/md";
-
+import { Snackbar } from "@mui/joy";
 
 const Controls = ({
   rows,
@@ -21,38 +21,48 @@ const Controls = ({
   setMap,
   myMap,
   enemy,
-  setEnemy
+  setEnemy,
 }) => {
-    const [tocopy, settocopy] = useState('');
+  const [tocopy, settocopy] = useState("");
+  const [open, setOpen] = useState(false);
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(tocopy)
+  const handleCopy = () => {
+    navigator.clipboard.writeText(tocopy);
+    setOpen(1);
+    setTimeout(() => {setOpen(0)}, 1000)
+  };
+  const handleUndo = () => {
+    if (mapHistory.length == 1) return;
+    const lastMapH = [...mapHistory];
+    lastMapH.pop();
+    setHistory(lastMapH);
+    setMap(lastMapH.pop());
+  };
+  const handleSetEnemy = (e) => {
+    setEnemy(e.target.value);
+  };
+  useEffect(() => {
+    let r = "";
+    for (let i = 0; i < myMap.length; i++) {
+      for (let j = 0; j < myMap[i].length; j++) {
+        r += "" + myMap[i][j];
+      }
+      r += "\n";
     }
-    const handleUndo = () => {
-        if (mapHistory.length == 1)
-            return ;
-        const lastMapH = [...mapHistory];
-        lastMapH.pop();
-        setHistory(lastMapH);
-        setMap(lastMapH.pop())
-    }
-    const handleSetEnemy = (e) => {
-      setEnemy(e.target.value);
-    }
-    useEffect(() => {
-        let r = '';
-        for (let i = 0; i < myMap.length; i++) {
-            for (let j = 0; j < myMap[i].length; j++) {
-                r += '' + myMap[i][j] 
-            }
-            r += '\n';
-        }
-        settocopy(r)
-    },[myMap])
-
+    settocopy(r);
+  }, [myMap]);
 
   return (
     <div className="p-4 flex flex-col gap-3">
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={open}
+        onClose={() => {}}
+        key={"top" + "center"}
+      >
+        Copied to clipboard
+      </Snackbar>
+
       <FormControl>
         <FormLabel>Rows</FormLabel>
         <Input
@@ -82,7 +92,6 @@ const Controls = ({
           type="text"
         ></Input>
       </FormControl>
-
 
       <div className="flex flex-col gap-2 mt-4">
         <div className="flex gap-2">
@@ -127,15 +136,21 @@ const Controls = ({
         </div>
       </div>
 
-<div className="flex gap-2 mt-8 mb-2">
- <Button  onClick={handleUndo} endDecorator={<LuUndo2/> }>undo</Button>
-    <Button  onClick={handleCopy} endDecorator={<MdContentCopy />}>Copy</Button>
-</div>
-   
+      <div className="flex gap-2 mt-8 mb-2">
+        <Button onClick={handleUndo} endDecorator={<LuUndo2 />}>
+          undo
+        </Button>
+        <Button onClick={handleCopy} endDecorator={<MdContentCopy />}>
+          Copy
+        </Button>
+      </div>
 
-    <textarea  onChange={() => {}} value={tocopy}  className="arrr w-full" rows={20}>
-    </textarea>
-
+      <textarea
+        onChange={() => {}}
+        value={tocopy}
+        className="arrr w-full"
+        rows={20}
+      ></textarea>
     </div>
   );
 };
