@@ -1,0 +1,68 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+.wall {
+    background-image: url("./assets/wall.jpeg");
+    background-size: contain;
+}
+
+.player {
+    background-image:url("./assets/player.gif"), url("./assets/grass.gif") ;
+    background-position: center, top right;
+    background-size: cover, contain;
+    background-repeat: no-repeat, no-repeat;
+
+}
+
+.free {
+    background-image: url("./assets/grass.gif") ;
+    background-position: center, top right;
+    background-size: cover, contain;
+    background-repeat: no-repeat, no-repeat;
+}
+
+.exit {
+    background-image: url("./assets/exit.gif"),  url("./assets/grass.gif") ;
+    background-position: center, top right;
+    background-size: cover, contain;
+    background-repeat: no-repeat, no-repeat;
+}
+
+.coin {
+    background-image:url("./assets/coin.gif"), url("./assets/grass.gif") ;
+    background-position: center, top right;
+    background-size: cover, contain;
+    background-repeat: no-repeat, no-repeat;
+}
+
+.enemy {
+    background-image:url("./assets/enemy.gif"), url("./assets/grass.gif") ;
+    background-position: center, top right;
+    background-size: cover, contain;
+    background-repeat: no-repeat, no-repeat; 
+}
+
+.map-item {
+    cursor: pointer;
+}
+
+.arrr {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 16px;
+    white-space: pre;    padding: 20px;
+}
+
+.map-div {
+    transform: scale(1);
+    border: 8px solid white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.ctrl {
+    min-width: 400px;
+}
+
+.map-p {
+    background-size: cover;
+    opacity: 1;
+}
