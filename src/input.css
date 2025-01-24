@@ -44,7 +44,21 @@
 
 .map-item {
     cursor: pointer;
+    height: 20px;
+    width: 20px;
+    border: 0px solid rgb(0, 0, 0);
 }
+
+.map-item:hover{
+    border: 4px solid rgb(255, 255, 255);
+    border-radius: 4px;
+}
+
+.map-item:focus{
+    height: 30px;
+    background: green;
+
+ }
 
 .arrr {
     font-family: 'Roboto Mono', monospace;
@@ -54,15 +68,22 @@
 
 .map-div {
     transform: scale(1);
-    border: 8px solid white;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .ctrl {
     min-width: 400px;
 }
 
-.map-p {
-    background-size: cover;
+.map-d {
+    background-image: url("./assets/dot-grid.webp");
+    background-repeat: repeat;
+    background-size: 50%;
+    opacity: 1;
+}
+
+.map-l {
+    background-image: url("./assets/dark.webp");
+    background-repeat: repeat;
+    background-size: 50%;
     opacity: 1;
 }

@@ -31,13 +31,6 @@ const Controls = ({
     setOpen(1);
     setTimeout(() => {setOpen(0)}, 1000)
   };
-  const handleUndo = () => {
-    if (mapHistory.length == 1) return;
-    const lastMapH = [...mapHistory];
-    lastMapH.pop();
-    setHistory(lastMapH);
-    setMap(lastMapH.pop());
-  };
   const handleSetEnemy = (e) => {
     setEnemy(e.target.value);
   };
@@ -51,6 +44,32 @@ const Controls = ({
     }
     settocopy(r);
   }, [myMap]);
+  
+  const handleKeyDown = (event) => {
+    if (event.key === 'z') {
+      handleUndo();
+    }
+  };
+  const handleUndo = () => {
+    if (mapHistory.length == 1) return;
+    const lastMapH = [...mapHistory];
+    lastMapH.pop();
+    setHistory(lastMapH);
+    setMap(lastMapH.pop());
+  };
+  
+
+  const handleClear = () => {
+    const map = [...myMap]
+    for (let i = 0; i < map.length; i++) {
+      for (let j = 0; j < map[i].length; j++) {
+        if (i == 0 || j == 0 || j == map[i].length - 1 || i == map.length - 1) map[i][j]=1;
+        else map[i][j] = 0;
+      }
+    }
+    setMap(map);
+  };
+  
 
   return (
     <div className="p-4 flex flex-col gap-3">
@@ -137,6 +156,9 @@ const Controls = ({
       </div>
 
       <div className="flex gap-2 mt-8 mb-2">
+      <Button color="warning" onClick={handleClear} endDecorator={<MdContentCopy />}>
+          Clear all
+        </Button>
         <Button onClick={handleUndo} endDecorator={<LuUndo2 />}>
           undo
         </Button>
